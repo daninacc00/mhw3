@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "title": "Nike Air Force 1 Low Canvas",
+    "price": 119.99,
+    "category": "men's shoes",
+    "image": "/assets/images/scarpa1.png",
+    "rating": { "rate": 4.5, "count": 250 }
+  },
+  {
+    "id": 2,
+    "title": "Nike Air Force 1",
+    "price": 109.99,
+    "category": "men's shoes",
+    "image": "/assets/images/scarpa2.png",
+    "rating": { "rate": 4.7, "count": 310 }
+  },
+  {
+    "id": 3,
+    "title": "Nike Air Max 95 OG",
+    "price": 159.99,
+    "category": "men's shoes",
+    "image": "/assets/images/scarpa3.png",
+    "rating": { "rate": 4.6, "count": 180 }
+  },
+  {
+    "id": 4,
+    "title": "Nike Air Max DN8",
+    "price": 134.99,
+    "category": "men's shoes",
+    "image": "/assets/images/scarpa4.png",
+    "rating": { "rate": 4.4, "count": 210 }
+  }
+]
