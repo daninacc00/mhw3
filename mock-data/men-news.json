@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Nike Air Force 1 Low Canvas",
+    "price": 119.99,
+    "category": "men's shoes",
+    "image": "/assets/images/scarpa-air-force-1-low-canvas.avif",
+    "rating": { "rate": 4.5, "count": 250 }
+  },
+  {
+    "id": 2,
+    "title": "Nike Air Force 1",
+    "price": 109.99,
+    "category": "men's shoes",
+    "image": "/assets/images/scarpa-air-force-1.avif",
+    "rating": { "rate": 4.7, "count": 310 }
+  },
+  {
+    "id": 3,
+    "title": "Nike Air Max 95 OG",
+    "price": 159.99,
+    "category": "men's shoes",
+    "image": "/assets/images/scarpa-air-max-95-og.avif",
+    "rating": { "rate": 4.6, "count": 180 }
+  },
+  {
+    "id": 4,
+    "title": "Nike Air Max DN8 Viola",
+    "price": 139.99,
+    "category": "men's shoes",
+    "image": "/assets/images/scarpa-air-max-dn8-viola.avif",
+    "rating": { "rate": 4.3, "count": 120 }
+  },
+  {
+    "id": 5,
+    "title": "Nike Air Max DN8",
+    "price": 134.99,
+    "category": "men's shoes",
+    "image": "/assets/images/scarpa-air-max-dn8.avif",
+    "rating": { "rate": 4.4, "count": 210 }
+  },
+  {
+    "id": 6,
+    "title": "Nike Air Max TL 2.5",
+    "price": 149.99,
+    "category": "men's shoes",
+    "image": "/assets/images/scarpa-air-max-tl-2-5.avif",
+    "rating": { "rate": 4.6, "count": 190 }
+  }
+]

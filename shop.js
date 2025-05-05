@@ -1,0 +1,301 @@
+
+//----------------[WEATHER & GEOCODE API]------------------
+
+const WEATHER_API_KEY = "secret";
+const GEOCODE_API_KEY = "secret";
+
+function getCityFromCoords(lat, lon) {
+  return fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${GEOCODE_API_KEY}&language=it`)
+    .then(res => {
+      if (!res.ok) throw new Error("Errore nella richiesta alla Geocoding API");
+      return res.json();
+    })
+    .then(data => {
+      const components = data.results[0]?.components;
+      return components?.city || components?.town || components?.village || components?.county || "Città sconosciuta";
+    })
+    .catch(error => {
+      console.error("Errore durante il recupero della città:", error);
+      return "Città sconosciuta";
+    });
+}
+
+
+function getWeather(city) {
+  return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${WEATHER_API_KEY}`)
+    .then(res => {
+      if (!res.ok) throw new Error("Errore nella richiesta alla Weather API");
+      return res.json();
+    })
+    .catch(error => {
+      console.error("Errore durante il recupero del meteo:", error);
+      return null;
+    });
+}
+
+
+function getMessage(temp, condition) {
+  const conditionToLower = condition.toLowerCase();
+
+  if (conditionToLower.includes("rain")) {
+    return "Sta piovendo! Scopri le nostre giacche impermeabili.";
+  } else if (temp < 10) {
+    return "Freddo là fuori? Scopri la collezione invernale.";
+  } else if (temp > 25) {
+    return "Tempo estivo! Dai un'occhiata ai nostri sandali.";
+  } else if (conditionToLower.includes("clear")) {
+    return "Giornata perfetta per una corsa – guarda le nostre sneakers.";
+  }
+
+  return "Scopri i nostri nuovi arrivi perfetti per ogni condizione!"
+}
+
+
+function showBanner(data) {
+  const banner = document.getElementById("weather-banner");
+  const textEl = document.getElementById("weather-text");
+
+  textEl.textContent = data;
+  banner.style.display = "block";
+}
+
+
+function handleError(error) {
+  console.error("Errore geolocalizzazione o API:", error);
+}
+
+function initWeatherBanner() {
+  if (!navigator.geolocation) {
+    console.warn("Geolocalizzazione non supportata.");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      const { latitude, longitude } = pos.coords;
+      getCityFromCoords(latitude, longitude).then(city => {
+        getWeather(city).then(data => {
+          if (data) {
+            const temp = data.main.temp;
+            const condition = data.weather[0].main;
+            const messageData = getMessage(temp, condition);
+            if (messageData) showBanner(messageData, city);
+          }
+        });
+      });
+    },
+    err => {
+      console.error("Geolocalizzazione non disponibile:", err);
+    }
+  );
+}
+
+initWeatherBanner();
+
+
+//----------------[FAKE STORE API]------------------
+
+const params = new URLSearchParams(window.location.search);
+const category = params.get("cat");
+const section = params.get("section");
+
+document.querySelectorAll('.filter-title').forEach(title => {
+  title.addEventListener('click', () => {
+    title.classList.toggle('open');
+  });
+});
+
+const filterBtn = document.querySelector('.filter-btn');
+const filters = document.querySelector('.filters');
+
+filterBtn.addEventListener('click', () => {
+  filters.style.display = filters.style.display === 'none' ? 'block' : 'none';
+  filterBtn.firstChild.textContent = filters.style.display === 'none' ? 'Mostra filtri' : 'Nascondi filtri';
+});
+
+
+const nav = document.getElementById('shop-header');
+const categoryTitle = document.getElementById('categoryTitle');
+const navHeight = nav.offsetHeight;
+let lastScrollTop = 0;
+
+function getPageTitle() {
+  var title;
+
+  const categoryMap = {
+    men: "da uomo",
+    woman: "da donna",
+    kids: "per bambini"
+  };
+
+  const sectionMap = {
+    shoes: "Sneakers e scarpe",
+    wear: "Abbigliamento",
+    news: "Novità nike",
+    bestSeller: "Best seller",
+    outlet: "Sconti"
+  };
+
+  const categoryLabel = categoryMap[category];
+  const sectionLabel = sectionMap[section];
+
+  if (sectionLabel && categoryLabel) {
+    title = `${sectionLabel} ${categoryLabel}`;
+  } else if (sectionLabel) {
+    title = sectionLabel;
+  } else if (categoryLabel) {
+    title = `Prodotti ${categoryLabel}`;
+  } else {
+    title = "Tutti i prodotti";
+  }
+
+  categoryTitle.innerText = title;
+}
+
+window.addEventListener('scroll', function () {
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+  if (scrollTop > navHeight) {
+    nav.classList.add('header-fixed');
+    categoryTitle.classList.add('category-small');
+  } else {
+    nav.classList.remove('header-fixed');
+    categoryTitle.classList.remove('category-small');
+  }
+
+  lastScrollTop = scrollTop;
+});
+
+function renderProducts(products, isMocked) {
+  const container = document.getElementById("product-grid");
+  container.innerHTML = '';
+
+  products.forEach(prod => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+
+    const imageContainer = document.createElement("div");
+    imageContainer.className = "product-image";
+    const imageLink = document.createElement("a");
+    imageLink.href = `detail.html?product=${prod.id}`
+    const img = document.createElement("img");
+    img.src = prod.image;
+    img.alt = prod.title;
+    if (isMocked) {
+      img.style.objectFit = "none";
+    }
+
+    imageLink.appendChild(img);
+    imageContainer.appendChild(imageLink);
+
+    const infoContainer = document.createElement("div");
+    infoContainer.className = "product-info";
+
+    if (prod.rating && prod.rating.count > 100) {
+      const tagElem = document.createElement("div");
+      tagElem.className = "product-tag";
+      tagElem.textContent = "Best seller";
+      infoContainer.appendChild(tagElem);
+    }
+
+    const nameElem = document.createElement("div");
+    nameElem.className = "product-name";
+    nameElem.textContent = prod.title;
+    infoContainer.appendChild(nameElem);
+
+    const categoryElem = document.createElement("div");
+    categoryElem.className = "product-category";
+    if (prod.category.includes("men")) {
+      categoryElem.textContent = "Prodotto – Uomo";
+    } else if (prod.category.includes("women")) {
+      categoryElem.textContent = "Prodotto – Donna";
+    } else if (prod.category.includes("kids")) {
+      categoryElem.textContent = "Prodotto – Bambini";
+    } else {
+      categoryElem.textContent = "Prodotto";
+    }
+    infoContainer.appendChild(categoryElem);
+
+    const colorsElem = document.createElement("div");
+    colorsElem.className = "product-colors";
+    const numColors = Math.floor(Math.random() * 15) + 1;
+    colorsElem.textContent = `${numColors} colori`;
+    infoContainer.appendChild(colorsElem);
+
+    const priceElem = document.createElement("div");
+    priceElem.className = "product-price";
+    priceElem.textContent = `${prod.price.toFixed(2)} €`;
+    infoContainer.appendChild(priceElem);
+
+    card.appendChild(imageContainer);
+    card.appendChild(infoContainer);
+
+    container.appendChild(card);
+  });
+}
+
+function getProducts() {
+  const categoryMap = {
+    men: "men",
+    women: "women",
+    kids: "kids"
+  };
+
+  const sectionMap = {
+    news: "news",
+    shoes: "shoes",
+    wear: "clothing",
+    bestSeller: "best-seller",
+    outlet: "outlet"
+  };
+
+  const expectedCategory = category && section
+    ? `${categoryMap[category]}'s ${sectionMap[section]}`
+    : null;
+
+  fetch("https://fakestoreapi.com/product")
+    .then(res => {
+      if (!res.ok) throw new Error("Errore nella richiesta principale");
+      return res.json();
+    })
+    .then(products => {
+      let isMocked = false;
+
+      if (expectedCategory) {
+        products = products.filter(p => p.category.toLowerCase() === expectedCategory);
+      } else if (category) {
+        products = products.filter(p => p.category.toLowerCase().includes(categoryMap[category]));
+      } else if (section) {
+        products = products.filter(p => p.category.toLowerCase().includes(sectionMap[section]));
+      }
+
+      if (products.length === 0) {
+        isMocked = true;
+        let fallbackFile = "./mock-data";
+        if (expectedCategory && section) {
+          fallbackFile = `${fallbackFile}/${categoryMap[category]}-${sectionMap[section]}.json`;
+        } else if (section) {
+          fallbackFile = `${fallbackFile}/${section}.json`;
+        }
+
+        return fetch(fallbackFile)
+          .then(fallbackRes => {
+            if (!fallbackRes.ok) throw new Error("Nessun prodotto disponibile");
+            return fallbackRes.json();
+          })
+          .then(fallbackProducts => {
+            renderProducts(fallbackProducts, isMocked);
+          });
+      } else {
+        renderProducts(products, isMocked);
+      }
+    })
+    .catch(err => {
+      console.error("Errore nel caricamento prodotti:", err);
+      const container = document.getElementById("product-grid");
+      container.innerHTML = '<div class="error-message">Impossibile caricare i prodotti. Riprova più tardi.</div>';
+    });
+}
+
+getProducts();
+getPageTitle();
