@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Nike Field General",
+    "price": 114.99,
+    "category": "women's shoes",
+    "image": "/assets/images/scarpa-field-general.avif",
+    "rating": { "rate": 4.4, "count": 160 }
+  },
+  {
+    "id": 2,
+    "title": "Nike P-6000",
+    "price": 104.99,
+    "category": "women's shoes",
+    "image": "/assets/images/scarpa-p-6000.avif",
+    "rating": { "rate": 4.6, "count": 230 }
+  },
+  {
+    "id": 3,
+    "title": "Nike Zoom Vomero 5",
+    "price": 139.99,
+    "category": "women's shoes",
+    "image": "/assets/images/scarpa-zoom-vomero-5.avif",
+    "rating": { "rate": 4.8, "count": 270 }
+  }
+]
