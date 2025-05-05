@@ -1,4 +1,5 @@
 //---------------------[HANDLE CLICK SULLE OPTIONS]-------------------
+
 function handleSelectOption(option, classname) {
     document.querySelectorAll(classname).forEach(opt => {
         opt.classList.remove('selected');
@@ -19,9 +20,11 @@ sizeOptions.forEach(option => {
 
 
 //----------------[CARRELLO]------------------
-const SQUARE_APP_ID = "sandbox-sq0idb-MVXKt0GG8PPWtdhpsXUAYA";
-const SQUARE_LOCATION_ID = "L00RMZ3RWDTS1";
-const SQUARE_ACCESS_TOKEN = "EAAAl2l9bnFRP2Nwo2tErUg_7KicWhMiqjz3njfJiGk4yr9sCnhpmYUHDMNgvIMm";
+
+const SQUARE_APP_ID = "secret";
+const SQUARE_LOCATION_ID = "secret";
+const SQUARE_ACCESS_TOKEN = "secret";
+
 const cart = [];
 let card;
 let payments;

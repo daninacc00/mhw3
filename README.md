@@ -1,6 +1,6 @@
 # 📚 Web Programming - Homework 2
 
-Benvenuto/a! Questo repository contiene il **Mini Homework 2 (mhw3)** del corso **Web Programming** dell'Università di Catania per l'anno accademico 2024/25. L'obiettivo di questo esercizio è integrare **JavaScript** all'interno della pagina realizzata nel MHW1, aggiungendo interattività e manipolazione dinamica del DOM.
+Benvenuto/a! Questo repository contiene il **Mini Homework 2 (mhw3)** del corso **Web Programming** dell'Università di Catania per l'anno accademico 2024/25. L'obiettivo di questo esercizio è integrare **JavaScript** all'interno della pagina realizzata nel mhw3, aggiungendo interattività e manipolazione dinamica del DOM.
 
 ## 📂 Struttura del Repository
 
@@ -15,7 +15,7 @@ Il progetto **HMW2** include i seguenti file:
 
 ## 🚀 Obiettivi di HMW2 - Interattività con JavaScript
 
-L'obiettivo di **HMW2** è estendere la pagina creata nel MHW1 con funzionalità dinamiche utilizzando **JavaScript**. I requisiti principali sono:
+L'obiettivo di **HMW2** è estendere la pagina creata nel mhw3 con funzionalità dinamiche utilizzando **JavaScript**. I requisiti principali sono:
 
 ✔ **Gestione eventi con `addEventListener()`**  
 ✔ **Creazione dinamica di elementi con `document.createElement()`**  

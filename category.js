@@ -3,6 +3,7 @@
 const nav = document.getElementById('mainNav');
 const hero = document.getElementById('heroSection');
 const categoryTitle = document.getElementById('categoryTitle');
+
 const navHeight = nav.offsetHeight;
 let lastScrollTop = 0;
 
@@ -34,6 +35,7 @@ menuItems.forEach(item => {
     });
 });
 
+
 // ----------------[HERO BANNER]-----------------------
 
 const bannerSlider = document.querySelector('.banner-slider');
@@ -46,33 +48,39 @@ function toggleSlide() {
 
 setInterval(toggleSlide, 5000);
 
+
 // --------------------[CAROUSEL]---------------------------------
 
 const carousel = document.getElementById('productCarousel');
 const prevButton = document.querySelector('.slider-controls .slider-btn.prev');
 const nextButton = document.querySelector('.slider-controls .slider-btn.next');
-const itemWidth = document.querySelector('.carousel-item').offsetWidth + 20; // width + gap
-let currentPosition = 0;
+const itemWidth = document.querySelector('.carousel-item').offsetWidth + 20;
+
 const totalItems = document.querySelectorAll('.carousel-item').length;
-const visibleItems = 3; // Number of items visible at once
+const visibleItems = 3;
 const maxPosition = Math.max(0, totalItems - visibleItems);
 
-prevButton.addEventListener('click', function () {
-    if (currentPosition > 0) {
-        currentPosition--;
-        updateCarouselPosition();
-    }
-});
-
-nextButton.addEventListener('click', function () {
-    if (currentPosition < maxPosition) {
-        currentPosition++;
-        updateCarouselPosition();
-    }
-});
+let currentPosition = 0;
 
 function updateCarouselPosition() {
     carousel.style.transform = `translateX(-${currentPosition * itemWidth}px)`;
 }
+
+function handlePrev() {
+    if (currentPosition > 0) {
+        currentPosition--;
+        updateCarouselPosition();
+    }
+}
+
+function handleNext() {
+    if (currentPosition < maxPosition) {
+        currentPosition++;
+        updateCarouselPosition();
+    }
+}
+
+prevButton.addEventListener('click', handlePrev);
+nextButton.addEventListener('click', handleNext);
 
 

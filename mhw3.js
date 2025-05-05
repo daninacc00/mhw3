@@ -136,14 +136,3 @@ const sliderImages = [
   });
   
   updateSlider();
-  
-
-
-
-
-
-
-
-
-
-
